@@ -18,21 +18,75 @@
 """
 
 
+from random import randint
+
+
 class Unit:
     def __init__(self, uid, team):
-        pass
+        self.uid, self.team = uid, team
+
+
+class Solder(Unit):
+    def __init__(self, uid, team, hero=None):
+        super().__init__(uid, team)
+        self.hero = hero
 
     def follow_hero(self, hero):
-        pass
+        self.hero = hero
 
 
 class Hero(Unit):
-    def level_up(self):
-        pass
+    def __init__(self, uid, team, level=0):
+        super().__init__(uid, team)
+        self.level = level
+
+    def level_up(self, num):
+        self.level += num
+
+
+class UID:
+    def __init__(self):
+        self.count = -1
+
+    @property
+    def new(self):
+        self.count += 1
+        return self.count
 
 
 def main():
-    pass
+    heroes = []
+    team_a = []
+    team_b = []
+    solder_count = 16
+
+    uid = UID()
+
+    heroes.append(Hero(uid.new, team_a))
+    heroes.append(Hero(uid.new, team_b))
+
+    for i in range(solder_count):
+        if randint(1, 10) % 2:
+            team_a.append(Solder(uid.new, team_a))
+        else:
+            team_b.append(Solder(uid.new, team_b))
+
+    for i, team in enumerate((team_a, team_b)):
+        print(f'Team {i + 1}: {len(team)} solders')
+
+    if len(team_a) > len(team_b):
+        heroes[0].level_up(1)
+    elif len(team_a) < len(team_b):
+        heroes[1].level_up(1)
+
+    for hero in heroes:
+        print(f'Hero id:{hero.uid}, level:{hero.level}')
+
+    captain = heroes[0]
+    follower = captain.team[randint(0, len(captain.team)) - 1]  # FIX ME (error if len == 0)
+    follower.follow_hero(captain)
+
+    print(f'Captain id: {captain.uid}, follower id: {follower.uid}')
 
 
 if __name__ == '__main__':
