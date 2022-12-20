@@ -18,19 +18,43 @@
 """
 
 
+from random import randint
+
+
 class Person:
-    def __init__(self, name, s_name, level):
-        pass
+    def __init__(self, name, s_name, level=1):
+        self.name, self.s_name, self.level = name, s_name, level
 
     def info(self):
-        pass
+        return self.name, self.s_name, self.level
 
     def __del__(self):
-        pass
+        print(f'До свидания, мистер {self.name} {self.s_name}')
 
+
+def staf_info(staf):
+    for i, person in enumerate(staf):
+        print(f'{i + 1}:', *person.info())
 
 def main():
-    pass
+    staf = []
+
+    for name, s_name, level in (
+            ('John', 'Snow', randint(0, 20)),
+            ('Thomas', 'Anderson', randint(0, 20)),
+            ('Sarah', 'Connor', randint(0, 20)),
+                                ):
+        staf.append(Person(name, s_name, level))
+
+    staf_info(staf)
+
+    for i in range(len(staf) - 1):
+        if staf[i].level <= staf[i + 1].level:
+            staf[i], staf[i + 1] = staf[i + 1], staf[i]
+
+    staf.pop()
+
+    input('\nPress any key to terminate.')
 
 
 if __name__ == '__main__':
