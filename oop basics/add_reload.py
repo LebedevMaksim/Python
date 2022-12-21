@@ -17,15 +17,18 @@
 
 
 class A:
-    def __init__(self):
-        pass
+    def __init__(self, value):
+        self.value = value
 
-    def __add__(self):
-        pass
+    def __add__(self, add_):
+        return A(self.value + add_)
 
 
 def main():
-    pass
+    a = A(5)
+    b = a + 5
+
+    print(b, b.value, sep='\n')
 
 
 if __name__ == '__main__':
