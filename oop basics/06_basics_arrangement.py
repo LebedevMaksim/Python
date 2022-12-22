@@ -27,6 +27,9 @@ https://younglinux.info/oopython/arrangement
 """
 
 
+import math
+
+
 class WinDoor:
     def __init__(self, x, y):
         self.square = x * y
@@ -34,22 +37,40 @@ class WinDoor:
 
 class Room:
     def __init__(self, x, y, z):
-        self.square = 2 * z * (x + y)
+        self.width, self.length, self.height = x, y, z
         self.wd = []
 
     def add_wd(self, w, h):
         self.wd.append(WinDoor(w, h))
 
+    @property
+    def square(self):
+        return 2 * (self.width + self.length) * self.height
+
     def work_surface(self):
-        new_square = self.square
+        square = self.square
         for i in self.wd:
-            new_square -= i.square
-        return new_square
+            square -= i.square
+        return square
 
 
-r1 = Room(6, 3, 2.7)
-print(r1.square)
-r1.add_wd(1, 1)
-r1.add_wd(1, 1)
-r1.add_wd(1, 2)
-print(r1.work_surface())
+def main():
+    x, y, h = map(float, input('Please enter the width, length and height, \nseparated by space:').split(sep=' '))
+    r1 = Room(x, y, h)
+    print('Room square:', r1.square)
+
+    wd_i = int(input('How many windows and doors there are in the room:'))
+    for i in range(wd_i):
+        a, b = map(float, input('Please enter the width and height, \nseparated by space:').split(sep=' '))
+        r1.add_wd(a, b)
+
+    work_s = r1.work_surface()
+    print('Work surface:', work_s)
+
+    r_w, r_h = map(float, input('Please enter the wallpaper width and height, \nseparated by space:').split(sep=' '))
+    r_count = math.ceil(work_s / (r_w * r_h))
+    print('Wallpaper rolls count:', r_count)
+
+
+if __name__ == '__main__':
+    main()
