@@ -34,4 +34,40 @@ class Cylinder:
     def __init__(self, dia, hi):
         self.diameter = dia
         self.high = hi
-        self.area = self.make_area(dia, hi)
+        self.__area = self.make_area(dia, hi)
+
+    def __setattr__(self, key, value):
+        if key == "diameter":
+            self.__dict__[key] = value
+            if "high" in self.__dict__:
+                self.__area = self.make_area(self.diameter, self.high)
+        elif key == "high":
+            self.__dict__[key] = value
+            if "diameter" in self.__dict__:
+                self.__area = self.make_area(self.diameter, self.high)
+        elif key == "_Cylinder__area":
+            self.__dict__[key] = value
+        else:
+            raise AttributeError
+
+    @property
+    def info(self):
+        return 'Diameter: ' + str(self.diameter) + ' high: ' + str(self.high) + ' area: ' + str(self.__area)
+
+
+def main():
+    c1 = Cylinder(2, 5)
+    print(c1.info)
+
+    c1.high = 10
+    print(c1.info)
+
+    c1.diameter = 4
+    print(c1.info)
+
+    c1._Cylinder__area = 10
+    print(c1.info)
+
+
+if __name__ == "__main__":
+    main()
