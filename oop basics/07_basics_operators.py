@@ -23,27 +23,38 @@ __mul__() – умножение, __truediv__() – деление. В клас�
 
 
 class Snow:
-    def __init__(self):
-        pass
+    def __init__(self, count):
+        self.count = count
 
     def __add__(self, other):
-        pass
+        self.count += other
 
     def __sub__(self, other):
-        pass
+        self.count -= other
 
     def __mul__(self, other):
-        pass
+        self.count *= other
 
     def __truediv__(self, other):
-        pass
+        self.count //= other
 
-    def make_snow(self):
-        pass
+    def make_snow(self, row):
+        s = ''
+        while self.count > 0:
+            if self.count >= row:
+                s += '*' * row + '\n'
+                self.count -= row
+            else:
+                s += '*' * self.count + '\n'
+                self.count = 0
+        return s
 
 
 def main():
-    pass
+    snow = Snow(11)
+    snow * 5
+    snow + 4
+    print(snow.make_snow(10))
 
 
 if __name__ == '__main__':
