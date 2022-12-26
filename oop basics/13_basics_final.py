@@ -3,9 +3,10 @@
 
 https://younglinux.info/oopython/ooprogramm
 
-
-
 """
+
+
+from random import randint
 
 
 class Data:
@@ -38,7 +39,25 @@ class Pupil:
 
 
 def main():
-    pass
+    knowledge = Data(
+        'class',
+        'object',
+        'inheritance',
+        'polymorphism',
+        'encapsulation',
+    )
+
+    merlin = Teacher()
+
+    pupils = [Pupil() for i in range(4)]
+
+    for p in pupils:
+        rndi = randint(0, len(knowledge.info)) - 1
+        merlin.teach(knowledge[rndi], p)
+
+    print(merlin.work)
+    for p in pupils:
+        print(p.knowledge)
 
 
 if __name__ == "__main__":
