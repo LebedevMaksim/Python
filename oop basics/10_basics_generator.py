@@ -11,12 +11,19 @@ https://younglinux.info/oopython/generator
 """
 
 
+from random import randint
+
+
 def num_generator(count, start, stop):
-    pass
+    for i in range(count):
+        yield randint(start, stop)
 
 
 def main():
-    pass
+    nums = num_generator(4, 100, 500)
+
+    for i in nums:
+        print(i)
 
 
 if __name__ == "__main__":
