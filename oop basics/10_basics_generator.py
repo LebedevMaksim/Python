@@ -1,5 +1,5 @@
 # author: MLebedev
-""" Практика по ООП #9
+""" Практика по ООП #10
 
 https://younglinux.info/oopython/generator
 
