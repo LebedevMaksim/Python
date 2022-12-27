@@ -67,6 +67,15 @@ def oblivion_cycle(data, pupils):
             if rndi > 0:
                 p.knowledge.discard(rndi)
 
+def final_exam(knowledge, pupils):
+    for p in pupils:
+        if len(p.knowledge) == len(knowledge.info):
+            status = '== GENIUS'
+        elif len(p.knowledge) == 0:
+            status = '== FOOL'
+        else:
+            status = ''
+        print(p.knowledge, status)
 
 def main():
     knowledge = Data(
@@ -79,7 +88,7 @@ def main():
 
     merlin = Teacher()
 
-    pupils = [Pupil() for i in range(7)]
+    pupils = [Pupil() for i in range(10)]
 
     # Study period
     for i in range(5):
@@ -89,8 +98,7 @@ def main():
         oblivion_cycle(knowledge, pupils)
 
     print(merlin.work)
-    for p in pupils:
-        print(p.knowledge)
+    final_exam(knowledge, pupils)
 
 
 if __name__ == "__main__":
