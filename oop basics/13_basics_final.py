@@ -40,13 +40,13 @@ class Teacher(Person):
 class Pupil(Person):
     """The student receives information and retains this knowledge. Maybe forget some data."""
     def __init__(self):
-        self.knowledge = []
+        self.knowledge = set()
         super().__init__()
 
     def take(self, info):
         # Probability of getting knowledge
         if randint(0, 100) > self.oblivion:
-            self.knowledge.append(info)
+            self.knowledge.add(info)
 
 
 def learning_cycle(data, teacher, pupils):
@@ -65,7 +65,7 @@ def oblivion_cycle(data, pupils):
             # Same oblivion
             rndi = randint(0, len(p.knowledge)) - 1
             if rndi > 0:
-                p.knowledge.pop(rndi)
+                p.knowledge.discard(rndi)
 
 
 def main():
@@ -79,10 +79,10 @@ def main():
 
     merlin = Teacher()
 
-    pupils = [Pupil() for i in range(4)]
+    pupils = [Pupil() for i in range(7)]
 
     # Study period
-    for i in range(3):
+    for i in range(5):
         # Time for knowledge
         learning_cycle(knowledge, merlin, pupils)
         # Time for rest
