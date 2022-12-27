@@ -49,6 +49,25 @@ class Pupil(Person):
             self.knowledge.append(info)
 
 
+def learning_cycle(data, teacher, pupils):
+    for p in pupils:
+        rndi = randint(0, len(data.info)) - 1
+        teacher.teach(data[rndi], p)
+
+
+def oblivion_cycle(data, pupils):
+    for p in pupils:
+        if p.oblivion > randint(0, 100):
+            # Get new knowledge
+            rndi = randint(0, len(data.info)) - 1
+            p.take(data[rndi])
+        else:
+            # Same oblivion
+            rndi = randint(0, len(p.knowledge)) - 1
+            if rndi > 0:
+                p.knowledge.pop(rndi)
+
+
 def main():
     knowledge = Data(
         'class',
@@ -62,9 +81,10 @@ def main():
 
     pupils = [Pupil() for i in range(4)]
 
-    for p in pupils:
-        rndi = randint(0, len(knowledge.info)) - 1
-        merlin.teach(knowledge[rndi], p)
+    # Time for knowledge
+    learning_cycle(knowledge, merlin, pupils)
+    # Time for rest
+    oblivion_cycle(knowledge, pupils)
 
     print(merlin.work)
     for p in pupils:
