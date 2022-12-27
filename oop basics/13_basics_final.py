@@ -35,7 +35,9 @@ class Pupil:
         self.knowledge = []
 
     def take(self, info):
-        self.knowledge.append(info)
+        # Probability of getting knowledge
+        if randint(0, 100) > 20:
+            self.knowledge.append(info)
 
 
 def main():
