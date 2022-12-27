@@ -81,10 +81,12 @@ def main():
 
     pupils = [Pupil() for i in range(4)]
 
-    # Time for knowledge
-    learning_cycle(knowledge, merlin, pupils)
-    # Time for rest
-    oblivion_cycle(knowledge, pupils)
+    # Study period
+    for i in range(3):
+        # Time for knowledge
+        learning_cycle(knowledge, merlin, pupils)
+        # Time for rest
+        oblivion_cycle(knowledge, pupils)
 
     print(merlin.work)
     for p in pupils:
