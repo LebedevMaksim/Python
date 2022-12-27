@@ -67,6 +67,7 @@ def oblivion_cycle(data, pupils):
             if rndi > 0:
                 p.knowledge.discard(rndi)
 
+
 def final_exam(knowledge, pupils):
     for p in pupils:
         if len(p.knowledge) == len(knowledge.info):
@@ -76,6 +77,7 @@ def final_exam(knowledge, pupils):
         else:
             status = ''
         print(p.knowledge, status)
+
 
 def main():
     knowledge = Data(
