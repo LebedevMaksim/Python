@@ -22,24 +22,26 @@ def file_download(path_download, path_to_save):
 
 
 def get_html_tag_list(tag, text):
-    images = []
+    tag_list = []
     for i in range(len(text)):
         if text[i] == '<' and text[i + 1: i + 4] == tag:
             j = i + 1
             while text[j] != '>':
                 j += 1
-            images.append(text[i: j + 1])
+            tag_list.append(text[i: j + 1])
 
-    return images
+    return tag_list
 
 
-def get_value(attr, tag):
-    for i in range(len(tag)):
-        if tag[i] == attr[0] and tag[i: i + len(attr)] == attr:
-            j = i + len(attr) + 2
-            while tag[j] != tag[i + len(attr) + 1]:
-                j += 1
-            return tag[i + len(attr) + 2: j]
+def get_attribute_value(attr, string):
+    for i in range(len(string)):
+        if string[i] == attr[0]:
+            if string[i: i + len(attr)] == attr:
+                j = i + len(attr) + 2
+                while string[j] != string[i + len(attr) + 1]:
+                    j += 1
+
+                return string[i + len(attr) + 2: j]
 
 
 def check_http_header(text):
@@ -58,7 +60,7 @@ def main():
         images = get_html_tag_list('img', response.text)
         images_url = []
         for image in images:
-            src = get_value('src', image)
+            src = get_attribute_value('src', image)
             if check_http_header(src):
                 images_url.append(src)
 
