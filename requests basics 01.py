@@ -22,7 +22,7 @@ def file_download(path_download, path_to_save):
             fd.write(chunk)
 
 
-def find_html_tag_list(tag, text):
+def get_html_tag_list(tag, text):
     images = []
     for i in range(len(text)):
         if text[i] == '<' and text[i + 1: i + 4] == tag:
@@ -34,6 +34,15 @@ def find_html_tag_list(tag, text):
     return images
 
 
+def get_value(attr, tag):
+    for i in range(len(tag)):
+        if tag[i] == attr[0] and tag[i: i + len(attr)] == attr:
+            j = i + len(attr) + 2
+            while tag[j] != tag[i + len(attr) + 1]:
+                j += 1
+            return tag[i + len(attr) + 2: j]
+
+
 def main():
     try:
         response = requests.get(URL)
@@ -43,9 +52,13 @@ def main():
         # print_response_headers(response)
         print(response, response.elapsed, response.url, sep='\n')
 
-        images = find_html_tag_list('img', response.text)
+        images = get_html_tag_list('img', response.text)
+        images_url = []
         for image in images:
-            print(image)
+            images_url.append(get_value('src', image))
+
+        for url in images_url:
+            print(url)
 
     # file_download('https://www.1zoom.ru/big2/564/312369-Lastochka.jpg', 'Lastochka.jpg')
 
