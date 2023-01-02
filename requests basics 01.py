@@ -1,3 +1,6 @@
+""" The script creates a download list of all images found on the web page
+
+"""
 import requests
 
 
