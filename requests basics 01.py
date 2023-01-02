@@ -1,7 +1,7 @@
 import requests
 
 
-URL = 'http://wttr.in/'
+URL = 'http://seasonvar.ru/'
 
 
 def print_response_headers(response_):
@@ -22,6 +22,18 @@ def file_download(path_download, path_to_save):
             fd.write(chunk)
 
 
+def find_all_images(text):
+    images = []
+    for i in range(len(text)):
+        if text[i] == '<' and text[i + 1: i + 4] == 'img':
+            j = i + 1
+            while text[j] != '>':
+                j += 1
+            images.append(text[i : j + 1])
+
+    return images
+
+
 def main():
     try:
         response = requests.get(URL)
@@ -30,6 +42,10 @@ def main():
     else:
         # print_response_headers(response)
         print(response, response.elapsed, response.url, sep='\n')
+
+        images = find_all_images(response.text)
+        for image in images:
+            print(image)
 
     # file_download('https://www.1zoom.ru/big2/564/312369-Lastochka.jpg', 'Lastochka.jpg')
 
