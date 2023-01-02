@@ -22,14 +22,14 @@ def file_download(path_download, path_to_save):
             fd.write(chunk)
 
 
-def find_all_images(text):
+def find_html_tag_list(tag, text):
     images = []
     for i in range(len(text)):
-        if text[i] == '<' and text[i + 1: i + 4] == 'img':
+        if text[i] == '<' and text[i + 1: i + 4] == tag:
             j = i + 1
             while text[j] != '>':
                 j += 1
-            images.append(text[i : j + 1])
+            images.append(text[i: j + 1])
 
     return images
 
@@ -43,7 +43,7 @@ def main():
         # print_response_headers(response)
         print(response, response.elapsed, response.url, sep='\n')
 
-        images = find_all_images(response.text)
+        images = find_html_tag_list('img', response.text)
         for image in images:
             print(image)
 
