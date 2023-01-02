@@ -17,7 +17,6 @@ def file_download(path_download, path_to_save):
     # The path and file name in 'path_to_save'
     with open(path_to_save, 'wb') as fd:
         for chunk in file.iter_content(chunk_size=50000):
-            print('Received a Chunk')
 
             fd.write(chunk)
 
@@ -43,6 +42,10 @@ def get_value(attr, tag):
             return tag[i + len(attr) + 2: j]
 
 
+def check_http_header(text):
+    return True if text[0:8] == 'https://' or text[0:7] == 'http://' else False
+
+
 def main():
     try:
         response = requests.get(URL)
@@ -55,7 +58,9 @@ def main():
         images = get_html_tag_list('img', response.text)
         images_url = []
         for image in images:
-            images_url.append(get_value('src', image))
+            src = get_value('src', image)
+            if check_http_header(src):
+                images_url.append(src)
 
         for url in images_url:
             print(url)
