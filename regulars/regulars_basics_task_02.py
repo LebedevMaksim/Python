@@ -8,8 +8,16 @@
 import re
 
 
+text = r"""Он --- серо-буро-малиновая редиска!! 
+>>>:-> 
+А не кот. 
+www.kot.ru
+"""
+
+
 def main():
-    pass
+    words = re.findall(r'\w[-\w]*', text, flags=re.MULTILINE)
+    print(len(words), words)
 
 
 if __name__ == '__main__':
