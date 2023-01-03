@@ -1,3 +1,6 @@
+# https://habr.com/ru/post/349860/#Zadachi__1
+
+
 import re
 
 
