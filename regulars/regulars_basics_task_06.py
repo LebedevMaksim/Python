@@ -9,9 +9,10 @@ text = """Это курс информатики соответствует ФГ
 это подтверждено ФГУ ФНЦ НИИСИ РАН"""
 
 
-def main():
-    pass
+def main(text_):
+    for match in re.finditer(r'(?:[А-Я]){2,}(?: (?:[А-Я]){2,})*', text_, flags=re.MULTILINE):
+        print(match[0] if match else '')
 
 
 if __name__ == '__main__':
-    main()
+    main(text)
