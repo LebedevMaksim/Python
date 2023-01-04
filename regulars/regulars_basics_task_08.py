@@ -12,7 +12,8 @@ text_b = """микоян авиацию снабдил алкоголем,
 
 
 def main(text_):
-    pass
+    res = re.findall(r'(\w)(?:\w+)', text_, flags=re.MULTILINE)
+    print(''.join(res).upper())
 
 
 if __name__ == '__main__':
