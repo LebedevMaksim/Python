@@ -16,9 +16,14 @@ text = """1.2
    99 """
 
 
-def main():
-    pass
+def main(text_):
+
+    for match in re.finditer(r'[^\s]+', text_, flags=re.MULTILINE):
+        print(match[0],
+              ' '*(20 - len(match[0])),
+              'is legal' if re.fullmatch(r'(?:\+|-)?\d+(?:\.\d+)?(?:(?:e|E)(?:\+|-)\d+)?',
+                                         match[0]) else 'is illegal')
 
 
 if __name__ == '__main__':
-    main()
+    main(text)
