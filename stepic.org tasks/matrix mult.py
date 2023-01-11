@@ -2,16 +2,16 @@
 n, m1 = map(int, input().split())
 mx_1 = []
 for _ in range(n):
-    tmp = list(map(int, input().split()))
-    mx_1.append(tmp)
+    tmp1 = list(map(int, input().split()))
+    mx_1.append(tmp1)
 
 input()
 
 m2, k = map(int, input().split())
 mx_2 = []
-for _ in range(n):
-    tmp = list(map(int, input().split()))
-    mx_2.append(tmp)
+for _ in range(m2):
+    tmp2 = list(map(int, input().split()))
+    mx_2.append(tmp2)
 
 mult_mx = [[0]*k for _ in range(n)]
 for i in range(n):
