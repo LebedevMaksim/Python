@@ -1,3 +1,6 @@
+import copy
+
+
 def matrix_pow(matrix_, p):
     n, m = len(matrix_), len(matrix_[0])
     if p < 0 or n != m:
@@ -11,7 +14,8 @@ def matrix_pow(matrix_, p):
         for i in range(n):
             result[i] = matrix_[i].copy()
 
-        for _ in range(2, p + 1):
+        for _ in range(p - 1):
+            res = [[0]*n for _ in range(n)]
             for j in range(n):
                 for i in range(n):
 
@@ -19,7 +23,8 @@ def matrix_pow(matrix_, p):
                     for k in range(n):
                         s += result[i][k] * matrix_[k][j]
 
-                    result[i][j] = s
+                    res[i][j] = s
+            result = copy.deepcopy(res)
 
     return result
 
@@ -27,15 +32,28 @@ def matrix_pow(matrix_, p):
 def matrix_print(matrix_):
     for row in matrix_:
         for item in row:
-            print(str(item).ljust(4), end='')
+            print(str(item).ljust(10), end='')
         print()
 
 
-matrix = [
-    [1, 0],
-    [4, 1],
-]
+def matrix_input(n):
+    matrix_ = []
+    for _ in range(n):
+        tmp = list(map(int, input().split()))
+        matrix_.append(tmp)
 
-res = matrix_pow(matrix, 25)
+    return matrix_
 
-matrix_print(res)
+
+def main():
+    n = int(input())
+    matrix = matrix_input(n)
+
+    p = int(input())
+    res = matrix_pow(matrix, p)
+
+    matrix_print(res)
+
+
+if __name__ == '__main__':
+    main()
